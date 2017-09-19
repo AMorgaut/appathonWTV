@@ -16,7 +16,7 @@ var MainView = new MAF.Class( {
             styles: {height: 40, width: 450, vOffset: vPos, hOffset: hPos, borderRadius: 10},
             textStyles: {anchorStyle: 'center'},
             events: {onSelect: function() {
-                return MAF.application.loadView( 'CreateView' );
+                return MAF.application.loadView( 'ScenarioEditor' );
             }}
         } ).appendTo( this );
         vPos += 70;

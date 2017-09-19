@@ -1,4 +1,5 @@
 var selectedCell = undefined;
+var sliderGrid = undefined;
 
 var ScenarioEditor = new MAF.Class( {
     Classname: 'ScenarioEditor',
@@ -92,14 +93,29 @@ var ScenarioEditor = new MAF.Class( {
                     this.getCurrentCell().focus();
                 }
             }
-        } ).appendTo( this );
+        }).appendTo( this );
+
+        sliderGrid = this.elements.slider;
+        this.setOnSelectEvent();
+    },
+
+    setOnSelectEvent : function(slider) {
+        slider.forEach(function(element) {
+            element.events.onSelect(function () {
+                sliderGrid.forEach(function(element) {
+                    if (element !== selectedCell) {
+                        hide();
+                    }
+                });
+            });
+
+        });
     },
 
     updateView : function() {
 
     },
 
-    // After the update view the focus view is called
     focusView: function() {
         this.elements.slider.changeDataset( [
             { title: $_( 'Estimote Proximity Beacon' ) },
