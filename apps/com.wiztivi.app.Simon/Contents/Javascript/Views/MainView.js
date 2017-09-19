@@ -10,9 +10,19 @@ var MainView = new MAF.Class( {
     createView: function() {
 
         simonView = this;
-
-
         this.tabIOTEvents = [];
+
+        this.observeImage = new MAF.element.Image({
+            src: "Images/observeIcon.png",
+            autoShow: false,
+            styles: {
+                width: 200,
+                height: 200,
+                vOffset: (this.height - 200) / 2,
+                hOffset: (this.width - 200) / 2
+            }
+
+        }).appendTo(this);
 
         this.launchButton = new MAF.control.TextButton({
             label: $_('Start new game'),
@@ -43,7 +53,7 @@ var MainView = new MAF.Class( {
             styles: {
                 width: this.width / 2,
                 height: this.height / 2,
-                vOffset: (this.height - (this.height / 2)) / 2,
+                vOffset: this.height / 4,
                 hOffset: this.width / 4
             },
             cellCreator: function() {
@@ -78,6 +88,7 @@ var MainView = new MAF.Class( {
             }
         } ).appendTo( this );
 
+        this.observeImage.hide();
         this.grid.hide();
 
 
@@ -117,16 +128,14 @@ var sequence = [];
 var turn = 1;
 
 var launchGame = function() {
-
     sequence = [];
-
     launchTurn();
-
     console.log("Game Launched");
 };
 
 var launchTurn = function() {
     simonView.grid.hide();
+    simonView.observeImage.show();
     sequence.push(Math.floor(Math.random()*4));
     var timeout = 2000 - (Math.min(Math.floor((sequence.length - 1) / 5), 3) * 500);
 
@@ -141,6 +150,7 @@ var launchTurn = function() {
 
 var playerTurn = function() {
     userSequence = [];
+    simonView.observeImage.hide();
     simonView.grid.show();
     simonView.grid.focus();
 

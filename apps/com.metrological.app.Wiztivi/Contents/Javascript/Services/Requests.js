@@ -1,5 +1,8 @@
 var Requests = {
     doRequest: function( method, url, done, body ) {
+        if (!body) {
+            body = {};
+        }
         var xhr = new XMLHttpRequest();
         xhr.open(method, url, true);
         xhr.setRequestHeader("Content-Type", 'application/json; charset=utf-8');
