@@ -6,9 +6,26 @@ var MainView = new MAF.Class( {
 
     createView: function() {
 
-        var vPos = 0;
+        var vPos = 0, hPos = ( this.width - 450 ) / 2;
 
-        Sections.forEach(function (section, sectionIdx) {
+        // add create scenario button
+        this.controls[ 'createScenarioSelectButton' ] = new MAF.control.TextButton( {
+            guid: 'createScenarioSelectButton',
+            label: $_('Create new scenario'),
+            // view: scenario.view || null,
+            styles: {height: 40, width: 450, vOffset: vPos, hOffset: hPos, borderRadius: 10},
+            textStyles: {anchorStyle: 'center'},
+            events: {onSelect: function() {
+                return MAF.application.loadView( 'CreateView' );
+            }}
+        } ).appendTo( this );
+        vPos += 70;
+
+        Sections.forEach(addSection, this);
+
+        function addSection(section, sectionIdx) {
+            section.id = 'section' + sectionIdx;
+
             new MAF.element.Text({
                 label: section.name,
                 styles: {
@@ -18,41 +35,51 @@ var MainView = new MAF.Class( {
             } ).appendTo(this);
 
             vPos += 50;
-            (section.scenarios || []).forEach(function( scenario, buttonIdx ) {
-                
-                scenario.section = section;
-                scenario.action = section.action.bind(section, scenario);
-                
-                // Generate a unique name for the view.controls and the guid
-                scenario.id = 'scenario' + (sectionIdx + 1) * buttonIdx;
+            console.log('section', section);
+            this.currentSection = section;
+            (section.scenarios || []).forEach(addScenario, this );
+        }
 
-                this.controls[ scenario.id ] = new MAF.control.TextButton( {
-                    guid: scenario.id,
-                    label: scenario.name,
-                    // view: scenario.view || null,
-                    styles: {
-                        height: 80, width: 450,
-                        vOffset: vPos, hOffset: ( this.width - 450 ) / 2,
-                        borderRadius: 10
+        function addScenario( scenario, buttonIdx ) {
+
+            var section = this.currentSection
+            scenario.section = section;
+            scenario.action = section.action.bind(section, scenario);
+
+            // Generate a unique name for the view.controls and the guid
+            scenario.id = section.id + 'scenario' + buttonIdx;
+
+            var textButton = new MAF.control.TextButton( {
+                guid: scenario.id + 'selectButton',
+                label: scenario.name,
+                // view: scenario.view || null,
+                styles: {
+                    height: 80, width: 450,
+                    vOffset: vPos, hOffset: hPos,
+                    borderRadius: 10
+                },
+                textStyles: {
+                    fontSize: 35,
+                    anchorStyle: 'center'
+                },
+                events: {
+                    onFocus: function () {
+                        // console.log(ScenarioDetailView);
                     },
-                    textStyles: {
-                        fontSize: 35,
-                        anchorStyle: 'center'
-                    },
-                    events: {
-                        onFocus: function () {
-                            // console.log(ScenarioDetailView);
-                        },
-                        onSelect: function() {
-                            currentScenario = scenario;
-                            console.log('scenario', scenario);
-                            return MAF.application.loadView( 'ScenarioDetailView' );
-                        }
+                    onSelect: function() {
+                        currentScenario = scenario;
+                        console.log('scenario', scenario);
+                        return MAF.application.loadView( section.view || 'ScenarioDetailView' );
                     }
-                } ).appendTo( this );
-                vPos += 100;
-            }, this );
-        }, this);
+                }
+            } );
+            this.controls[ scenario.id ] =textButton;
+            textButton.appendTo( this );
+            if (section.id === 'section0') {
+                textButton.focus();
+            }
+            vPos += 100;
+        }
 
     }
 } );
