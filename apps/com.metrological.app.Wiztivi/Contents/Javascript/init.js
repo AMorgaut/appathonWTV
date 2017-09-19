@@ -3,6 +3,7 @@ include( 'Javascript/Sections.js');
 include( 'Javascript/Scenarios.js');
 
 include( 'Javascript/Services/Requests.js');
+include( 'Javascript/Devices/Devices.js');
 include( 'Javascript/Devices/Fan.js');
 include( 'Javascript/Devices/Door.js');
 include( 'Javascript/Devices/Curtains.js');
