@@ -27,5 +27,11 @@ var Lights = {
             "on": false
         };
         Requests.doRequest('PUT', lightsURL + lightId + "/state", done, body);
+    },
+    
+    alarmOn: function() {
+        for (var i = 1; i <= 7; i++) {
+            Lights.switchOn(i, undefined, 65535, 254, true);    
+        }
     }
 };

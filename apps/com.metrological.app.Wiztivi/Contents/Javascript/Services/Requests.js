@@ -9,7 +9,7 @@ var Requests = {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var answer = JSON.parse(xhr.responseText);
-                done(answer);
+                done && done(answer);
             }
         };
         xhr.onerror = function( error ) { console.log(error); };

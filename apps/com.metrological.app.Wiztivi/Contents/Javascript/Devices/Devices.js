@@ -48,6 +48,10 @@ var Devices = {
             {
                 id: 'switchOff',
                 label: 'Switch off lights'
+            },
+            {
+                id: 'alarmOn',
+                label: 'Alarm on'
             }
         ]
     }
