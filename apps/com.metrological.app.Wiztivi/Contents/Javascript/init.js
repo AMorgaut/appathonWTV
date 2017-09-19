@@ -2,7 +2,11 @@
 include( 'Javascript/Sections.js');
 include( 'Javascript/Scenarios.js');
 
+// Include your services
 include( 'Javascript/Services/Requests.js');
+include( 'Javascript/Services/ScenarioPlayer.js');
+
+// Include your devices
 include( 'Javascript/Devices/Devices.js');
 include( 'Javascript/Devices/MotionSensor.js');
 include( 'Javascript/Devices/Fan.js');
@@ -29,7 +33,6 @@ MAF.application.init( {
         { id: 'ManageView', viewClass: BrowseView },
         { id: 'DevicesListView', viewClass: DeviceListView },
 		{ id: 'About', viewClass: MAF.views.AboutBox } // Use standard About view
-
 	],
 	defaultViewId: 'MainView',
 	settingsViewId: 'About'

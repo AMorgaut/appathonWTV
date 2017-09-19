@@ -155,17 +155,24 @@ var MainView = new MAF.Class( {
 
         this.tabIOTEvents[0] = function() {
             console.log("LIGHT");
-            //Lights.switchOn(1, undefined, 46920, 254, false);
-            //setTimeout(Lights.switchOff, 500, 1);
+            Lights.switchOn(3, undefined, 46920, 254, false);
+            setTimeout(Lights.switchOff, 2000, 3);
         };
         this.tabIOTEvents[1] = function() {
-            console.log("OVEN");
+            console.log("FAN");
+            Fan.startFan();
+            setTimeout(Fan.stopFan, 3500);
         };
         this.tabIOTEvents[2] = function() {
             console.log("DOORLOCK");
+            Lights.switchOn(2, undefined, 65535, 254, false);
+            setTimeout(Lights.switchOff, 2000, 2);
         };
         this.tabIOTEvents[3] = function() {
             console.log("CURTAIN");
+            Curtains.openCurtains();
+             setTimeout(Curtains.closeCurtains, 1000);
+             setTimeout(Curtains.stopCurtains, 2000);
         };
 
     },
@@ -178,7 +185,7 @@ var MainView = new MAF.Class( {
             // Update grid with an example dataset
             this.grid.changeDataset( [
                 { title: $_( 'LIGHT' ) },
-                { title: $_( 'OVEN' ) },
+                { title: $_( 'FAN' ) },
                 { title: $_( 'DOORLOCK' ) },
                 { title: $_( 'CURTAIN' ) }
             ], true );
@@ -220,30 +227,34 @@ var launchTurn = function() {
             }
         }
     });
-    sequence.push(0);//(Math.floor(Math.random()*4));
-    var timeout = 2000 - (Math.min(Math.floor((sequence.length - 1) / 5), 3) * 500);
+    sequence.push(1);//Math.floor(Math.random()*4));
+    var timeout = 4000;// - (Math.min(Math.floor((sequence.length - 1) / 5), 3) * 750);
 
-    for(var i = 0, c = sequence.length ;  i < c ; i++) {
-        setTimeout(function(index) {
-            simonView.tabIOTEvents[sequence[index]]();
-            simonView.observeAnim.setStyle('opacity', 1);
-            simonView.observeAnim.animate({
-                duration: 1,
-                scale: 2,
-                opacity: 0,
-                events: {
-                    onAnimationEnded: function() {
-                        simonView.observeAnim.animate({
-                            duration: 0,
-                            scale: 1,
-                            opacity: 0
-                        });
-                    }
-                }
-            });
-        }, timeout * (i+1), i);
+    setTimeout(playObject, 500, 0);
+
+    for(var i = 1, c = sequence.length ;  i < c ; i++) {
+        setTimeout(playObject, timeout * (i+1), i);
     }
     setTimeout(playerTurn, timeout * sequence.length + 500);
+};
+
+var playObject = function(index) {
+    simonView.tabIOTEvents[sequence[index]]();
+    simonView.observeAnim.setStyle('opacity', 1);
+    simonView.observeAnim.animate({
+        duration: 1,
+        scale: 2,
+        opacity: 0,
+        events: {
+            onAnimationEnded: function() {
+                simonView.observeAnim.animate({
+                    duration: 0,
+                    scale: 1,
+                    opacity: 0
+                });
+            }
+        }
+    });
 };
 
 var playerTurn = function() {
