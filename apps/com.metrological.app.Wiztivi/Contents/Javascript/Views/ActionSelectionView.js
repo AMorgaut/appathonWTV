@@ -1,9 +1,7 @@
-var selectedCell = undefined;
-var sliderGrid = undefined;
-var selectedDevice = undefined;
+var selectedAction = undefined;
 
-var ScenarioEditor = new MAF.Class( {
-    Classname: 'ScenarioEditor',
+var ActionSelectionView = new MAF.Class( {
+    Classname: 'ActionSelectionView',
     Extends: MAF.system.FullscreenView,
 
     initialize: function() {
@@ -26,7 +24,7 @@ var ScenarioEditor = new MAF.Class( {
 
         this.elements.slider = new MAF.element.SlideCarousel( {
             visibleCells: 4,
-            subCells: 2,
+            subCells: 1,
             focusIndex: 1,
             slideDuration: 0.3,
             styles: {
@@ -46,9 +44,9 @@ var ScenarioEditor = new MAF.Class( {
                     events: {
 
                         onSelect: function() {
-                            selectedDevice = this.title.getText();
+                            selectedAction = this.title.getText();
                             this.title.setText('SELECTED!');
-                            MAF.application.loadView('ActionSelectionView', {device : selectedDevice});
+                            MAF.application.loadView('CreateView', {action: selectedAction});
                         },
 
                         onFocus: function() {
@@ -90,7 +88,7 @@ var ScenarioEditor = new MAF.Class( {
                 cell.title.setText( data.title );
             },
             events: {
-                    onDatasetChanged: function() {
+                onDatasetChanged: function() {
                     this.getCurrentCell().focus();
                 }
             }
@@ -99,10 +97,8 @@ var ScenarioEditor = new MAF.Class( {
         sliderGrid = this.elements.slider;
     },
 
-
     updateView : function() {
     },
-
 
     setOnSelectEvent : function(slider) {
         if (slider) {
@@ -120,6 +116,7 @@ var ScenarioEditor = new MAF.Class( {
     },
 
     focusView: function() {
+        //var actions = getDeviceActions();
         this.elements.slider.changeDataset( [
             { title: $_( 'Estimote Proximity Beacon' ) },
             { title: $_( 'Philips Hue Bloom' ) },
@@ -135,6 +132,6 @@ var ScenarioEditor = new MAF.Class( {
     }
 });
 
-function getDeviceActions(device) {
+/*function getDeviceActions(device) {
     JSON.parse();
-}
+}*/
