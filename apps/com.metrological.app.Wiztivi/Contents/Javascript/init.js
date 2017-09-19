@@ -1,4 +1,6 @@
 // Include your views
+include( 'Javascript/Services/Requests.js');
+include( 'Javascript/Devices/Lights.js');
 include( 'Javascript/Views/MainView.js');
 include( 'Javascript/Views/DevicesListView.js');
 include( 'Javascript/Views/CreateView.js');
