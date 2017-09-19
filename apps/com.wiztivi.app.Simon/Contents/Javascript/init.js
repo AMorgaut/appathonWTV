@@ -2,6 +2,8 @@
 include( 'Javascript/Views/MainView.js');
 include( 'Javascript/Services/Requests.js');
 include( 'Javascript/Devices/Lights.js');
+include( 'Javascript/Devices/Curtains.js');
+include( 'Javascript/Devices/Fan.js');
 
 // Init application with view config
 MAF.application.init( {
