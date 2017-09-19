@@ -25,10 +25,10 @@ var MainView = new MAF.Class( {
             src: "Images/observeIcon.png",
             autoShow: false,
             styles: {
-                width: 200,
-                height: 200,
-                vOffset: (this.height - 200) / 2,
-                hOffset: (this.width - 200) / 2,
+                width: IMAGE_SIZE,
+                height: IMAGE_SIZE,
+                vOffset: (this.height - IMAGE_SIZE) / 2,
+                hOffset: (this.width - IMAGE_SIZE) / 2,
                 opacity: 0
             }
 
@@ -38,13 +38,37 @@ var MainView = new MAF.Class( {
             src: "Images/observeIcon.png",
             autoShow: false,
             styles: {
-                width: 200,
-                height: 200,
-                vOffset: (this.height - 200) / 2,
-                hOffset: (this.width - 200) / 2,
+                width: IMAGE_SIZE,
+                height: IMAGE_SIZE,
+                vOffset: (this.height - IMAGE_SIZE) / 2,
+                hOffset: (this.width - IMAGE_SIZE) / 2,
                 opacity: 0
             }
 
+        }).appendTo(this);
+
+        this.facepalmImage = new MAF.element.Image({
+            src: "Images/facepalmIcon.png",
+            autoShow: false,
+            styles: {
+                width: IMAGE_SIZE,
+                height: IMAGE_SIZE,
+                vOffset: (this.height - IMAGE_SIZE) / 2,
+                hOffset: (this.width - IMAGE_SIZE) / 2,
+                opacity: 0
+            }
+        }).appendTo(this);
+
+        this.thumbUpImage = new MAF.element.Image({
+            src: "Images/thumbUpIcon.png",
+            autoShow: false,
+            styles: {
+                width: IMAGE_SIZE,
+                height: IMAGE_SIZE,
+                vOffset: (this.height - IMAGE_SIZE) / 2,
+                hOffset: (this.width - IMAGE_SIZE) / 2,
+                opacity: 0
+            }
         }).appendTo(this);
 
         this.launchButton = new MAF.control.TextButton({
@@ -71,10 +95,10 @@ var MainView = new MAF.Class( {
 
         this.scoreLabel = new MAF.element.Text({
             styles: {
-                width: 200,
-                height: 50,
-                hOffset: (this.width - 200) / 2,
-                vOffset: (this.height / 4) - 100,
+                width: 500,
+                height: 150,
+                hOffset: (this.width - 500) / 2,
+                vOffset: (this.height / 4) - 200,
                 color: '#6666ff',
                 fontSize: 50,
                 anchorStyle: 'center',
@@ -197,6 +221,7 @@ var MainView = new MAF.Class( {
 var userSequence = [];
 var sequence = [];
 var turn = 1;
+var IMAGE_SIZE = 300;
 
 var launchGame = function() {
     sequence = [];
@@ -206,14 +231,9 @@ var launchGame = function() {
 };
 
 var launchTurn = function() {
-    simonView.grid.animate({
+    simonView.thumbUpImage.animate({
         opacity: 0,
-        duration: 0.5,
-        events: {
-            onAnimationEnded: function() {
-                simonView.grid.hide();
-            }
-        }
+        duration: 0.5
     });
     simonView.observeImage.animate({
         opacity: 1,
@@ -291,7 +311,21 @@ var checkLastElement = function() {
         if(userSequence.length === sequence.length) {
             turn += 1;
             simonView.scoreLabel.setText(turn);
-            launchTurn();
+            Lights.flickerAll(25500, 2, 800);
+            simonView.grid.animate({
+                opacity: 0,
+                duration: 0.5,
+                events: {
+                    onAnimationEnded: function() {
+                        simonView.grid.hide();
+                    }
+                }
+            });
+            simonView.thumbUpImage.animate({
+                opacity: 1,
+                duration: 0.5
+            });
+            setTimeout(launchTurn, 5000);
         }
         return true;
     }
@@ -301,16 +335,32 @@ var resetGame = function() {
     userSequence = [];
     sequence = [];
     simonView.scoreLabel.hide();
-    turn = 1;
     simonView.grid.animate({
         opacity: 0,
         duration: 0.5,
         events: {
             onAnimationEnded: function () {
                 simonView.grid.hide();
+                simonView.scoreLabel.setText("Oh noes, you lost ! You scored " + turn + " point"+ (turn > 1 ? "s" : ""));
+                simonView.scoreLabel.show();
+                turn = 1;
+                simonView.facepalmImage.animate({
+                    opacity: 1,
+                    duration: 0.5
+                });
             }
         }
     });
-    simonView.launchButton.toggleDisabled();
-    simonView.launchButton.focus();
+
+    Lights.flickerAll(65535, 2, 800);
+    setTimeout(function() {
+        simonView.facepalmImage.animate({
+            opacity: 0,
+            duration: 0.5
+        });
+        simonView.launchButton.toggleDisabled();
+        simonView.launchButton.focus();
+        simonView.scoreLabel.hide();
+        simonView.scoreLabel.setText(turn);
+    }, 5000);
 };
