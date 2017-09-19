@@ -1,0 +1,17 @@
+{
+	"identifier": "com.wiztivi.app.Simon",
+	"name": "IOT Simon",
+	"version": "0.0.1",
+	"author": "Wiztivi team",
+	"company": "Wiztivi",
+	"copyright": "Wiztivi",
+	"description": "Application by Wiztivi for Appathon 2017",
+	"categories": [ "video" ],
+	"scripts": "Javascript/init.js",
+	"images": {
+		"about": "Images/Icon.png",
+		"icon": {
+			"192x192": "Images/Icon.png"
+		}
+	}
+}
