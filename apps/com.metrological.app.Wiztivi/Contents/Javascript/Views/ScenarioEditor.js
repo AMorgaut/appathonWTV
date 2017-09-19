@@ -80,14 +80,12 @@ var ScenarioEditor = new MAF.Class( {
                         fontSize: 32
                     }
                 } ).appendTo( cell );
-
                 return cell;
             },
 
             cellUpdater: function( cell, data ) {
                 cell.title.setText( data.title );
             },
-
             events: {
                 onDatasetChanged: function() {
                     this.getCurrentCell().focus();
@@ -96,10 +94,11 @@ var ScenarioEditor = new MAF.Class( {
         }).appendTo( this );
 
         sliderGrid = this.elements.slider;
-        this.setOnSelectEvent();
+        //console.log(sliderGrid);
+        //this.setOnSelectEvent(sliderGrid);
     },
 
-    setOnSelectEvent : function(slider) {
+    /*setOnSelectEvent : function(slider) {
         slider.forEach(function(element) {
             element.events.onSelect(function () {
                 sliderGrid.forEach(function(element) {
@@ -110,7 +109,7 @@ var ScenarioEditor = new MAF.Class( {
             });
 
         });
-    },
+    },*/
 
     updateView : function() {
 
