@@ -1,6 +1,13 @@
 var lightsURL = "http://the-thing.appathon.tv/philips-hue/api/59MSn7uqdUFj96Gb0r7fevecVH9A5IRSbEonz7va/lights/";
 
 var Lights = {
+    
+    COLOR_MAP: {
+        RED: 65535,
+        GREEN: 25500,
+        BLUE: 46920
+    },
+    
     getLights: function() {
         return [1, 2, 3, 4, 5, 6, 7];
     },
@@ -20,6 +27,14 @@ var Lights = {
         body.bri = brightness || 254;
         body.alert = alert ? "lselect" : "none";
         Requests.doRequest('PUT', lightsURL + lightId + "/state", done, body);
+    },
+    
+    setColor: function (lightId, color) {
+        Lights.switchOn(
+            lightId, 
+            Function.prototype,
+            Lights.COLOR_MAP[color.toUpperCase()]
+        );
     },
 
     switchOff: function(lightId, done) {
