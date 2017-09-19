@@ -19,7 +19,7 @@ Sections[T_INSTALLED].scenarios = [
         script:  {
             devices: [
                 { name: "hooven", actions: [
-                    {name: "ready", reaction: ['light1', 'color', 'red']}
+                    {name: "ready", reaction: ['light1', '']}
                 ]}
             ]
         }
@@ -31,7 +31,7 @@ Sections[T_INSTALLED].scenarios = [
         script:  {
             devices: [
                 { name: "door", actions: [
-                    {name: "ring", reaction: ['light1', 'color', 'red']}
+                    {name: "ring", reaction: ['light1', 'setColor', 'red']}
                 ]}
             ]
         }

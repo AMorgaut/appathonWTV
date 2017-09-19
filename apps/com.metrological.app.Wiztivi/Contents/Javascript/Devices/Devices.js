@@ -50,6 +50,11 @@ var Devices = {
                 label: 'Switch off lights'
             },
             {
+                id: 'flashColor',
+                label: 'Flash Color',
+                paramChoice: ['red', 'green', 'blue']
+            },
+            {
                 id: 'alarmOn',
                 label: 'Alarm on'
             }

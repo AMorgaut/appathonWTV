@@ -48,11 +48,10 @@ var ScenarioPlayer = {
                         device: device.name,
                         event: action.name,
                         callback: function (param) {
-                            
+
                             // RUN THE ACTION
                             Devices[device.name][action.name](param);
-                            
-                            
+
                         }
                     };
                     console.log('add listener', listener);
