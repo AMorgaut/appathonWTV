@@ -8,11 +8,6 @@ Sections[T_CUSTOM].scenarios = [
     {
         name: '123',
         description: 'My simple scenario I did myself'
-    },
-
-    {
-        name: 'Create new scenario',
-        description: 'Create new scenario with the scenario editor'
     }
 ];
 
