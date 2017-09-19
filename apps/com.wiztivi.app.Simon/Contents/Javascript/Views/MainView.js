@@ -1,3 +1,12 @@
+Theme.set({
+    BaseFocus: {
+        styles: {
+            backgroundColor: '#0000ff'
+        }
+    }
+});
+
+
 var simonView;
 var MainView = new MAF.Class( {
     ClassName: 'MainView',
@@ -19,7 +28,21 @@ var MainView = new MAF.Class( {
                 width: 200,
                 height: 200,
                 vOffset: (this.height - 200) / 2,
-                hOffset: (this.width - 200) / 2
+                hOffset: (this.width - 200) / 2,
+                opacity: 0
+            }
+
+        }).appendTo(this);
+
+        this.observeAnim = new MAF.element.Image({
+            src: "Images/observeIcon.png",
+            autoShow: false,
+            styles: {
+                width: 200,
+                height: 200,
+                vOffset: (this.height - 200) / 2,
+                hOffset: (this.width - 200) / 2,
+                opacity: 0
             }
 
         }).appendTo(this);
@@ -46,6 +69,19 @@ var MainView = new MAF.Class( {
         // Create a Grid, by adding it into the view.controls object and
         // setting guid focus will be remembered when returning to the view
 
+        this.scoreLabel = new MAF.element.Text({
+            styles: {
+                width: 200,
+                height: 50,
+                hOffset: (this.width - 200) / 2,
+                vOffset: (this.height / 4) - 100,
+                color: '#6666ff',
+                fontSize: 50,
+                anchorStyle: 'center',
+                wrap: true,
+            }
+        }).appendTo(this);
+
         this.grid = new MAF.control.Grid( {
             guid: 'myControlGrid',
             rows: 2,
@@ -54,7 +90,8 @@ var MainView = new MAF.Class( {
                 width: this.width / 2,
                 height: this.height / 2,
                 vOffset: this.height / 4,
-                hOffset: this.width / 4
+                hOffset: this.width / 4,
+                opacity: 0
             },
             cellCreator: function() {
                 // Create cells for the grid
@@ -64,7 +101,32 @@ var MainView = new MAF.Class( {
                         onSelect: function () {
                             simonView.tabIOTEvents[this.getCellIndex()]();
                             userSequence.push(this.getCellIndex());
-                            checkLastElement();
+                            if(checkLastElement()) {
+                                this.title.animate({
+                                    scale: 2,
+                                    duration: 0.15,
+                                    events: {
+                                        onAnimationEnded: function() {
+                                            this.animate({
+                                                scale: 1,
+                                                duration: 0.15
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                        },
+                        onFocus: function() {
+                            this.title.animate({
+                                duration: 0.5,
+                                scale: 1.2
+                            });
+                        },
+                        onBlur: function() {
+                            this.title.animate({
+                                duration: 0.5,
+                                scale: 1
+                            });
                         }
                     }
                 } );
@@ -88,12 +150,13 @@ var MainView = new MAF.Class( {
             }
         } ).appendTo( this );
 
-        this.observeImage.hide();
         this.grid.hide();
-
+        this.scoreLabel.hide();
 
         this.tabIOTEvents[0] = function() {
             console.log("LIGHT");
+            //Lights.switchOn(1, undefined, 46920, 254, false);
+            //setTimeout(Lights.switchOff, 500, 1);
         };
         this.tabIOTEvents[1] = function() {
             console.log("OVEN");
@@ -120,6 +183,7 @@ var MainView = new MAF.Class( {
                 { title: $_( 'CURTAIN' ) }
             ], true );
         }
+        this.scoreLabel.setText(turn);
     }
 } );
 
@@ -129,20 +193,54 @@ var turn = 1;
 
 var launchGame = function() {
     sequence = [];
+    simonView.scoreLabel.show();
     launchTurn();
     console.log("Game Launched");
 };
 
 var launchTurn = function() {
-    simonView.grid.hide();
-    simonView.observeImage.show();
-    sequence.push(Math.floor(Math.random()*4));
+    simonView.grid.animate({
+        opacity: 0,
+        duration: 0.5,
+        events: {
+            onAnimationEnded: function() {
+                simonView.grid.hide();
+            }
+        }
+    });
+    simonView.observeImage.animate({
+        opacity: 1,
+        duration: 0.5,
+        events: {
+            onAnimationEnded: function() {
+                simonView.observeAnim.animate({
+                    opacity: 1,
+                    duration: 0
+                });
+            }
+        }
+    });
+    sequence.push(0);//(Math.floor(Math.random()*4));
     var timeout = 2000 - (Math.min(Math.floor((sequence.length - 1) / 5), 3) * 500);
 
     for(var i = 0, c = sequence.length ;  i < c ; i++) {
         setTimeout(function(index) {
             simonView.tabIOTEvents[sequence[index]]();
-
+            simonView.observeAnim.setStyle('opacity', 1);
+            simonView.observeAnim.animate({
+                duration: 1,
+                scale: 2,
+                opacity: 0,
+                events: {
+                    onAnimationEnded: function() {
+                        simonView.observeAnim.animate({
+                            duration: 0,
+                            scale: 1,
+                            opacity: 0
+                        });
+                    }
+                }
+            });
         }, timeout * (i+1), i);
     }
     setTimeout(playerTurn, timeout * sequence.length + 500);
@@ -150,10 +248,25 @@ var launchTurn = function() {
 
 var playerTurn = function() {
     userSequence = [];
-    simonView.observeImage.hide();
+    simonView.observeAnim.animate({
+        opacity: 0,
+        duration: 0
+    });
+    simonView.observeImage.animate({
+        opacity: 0,
+        duration: 0.5
+    });
     simonView.grid.show();
-    simonView.grid.focus();
-
+    simonView.grid.animate({
+        opacity: 1,
+        duration: 0.5,
+        events: {
+            onAnimationEnded: function() {
+                simonView.grid.focus();
+                simonView.grid.focusCell(0);
+            }
+        }
+    });
 };
 
 var checkLastElement = function() {
@@ -161,19 +274,32 @@ var checkLastElement = function() {
     if(userSequence[lastElement] !== sequence[lastElement]) {
         console.log("PERDU");
         resetGame();
+        return false;
     } else {
         console.log("GOOD");
         if(userSequence.length === sequence.length) {
+            turn += 1;
+            simonView.scoreLabel.setText(turn);
             launchTurn();
         }
+        return true;
     }
 };
 
 var resetGame = function() {
     userSequence = [];
     sequence = [];
+    simonView.scoreLabel.hide();
     turn = 1;
-    simonView.grid.hide();
+    simonView.grid.animate({
+        opacity: 0,
+        duration: 0.5,
+        events: {
+            onAnimationEnded: function () {
+                simonView.grid.hide();
+            }
+        }
+    });
     simonView.launchButton.toggleDisabled();
     simonView.launchButton.focus();
 };
