@@ -9,9 +9,9 @@
 	"categories": [ "video" ],
 	"scripts": "Javascript/init.js",
 	"images": {
-		"about": "Images/Icon.png",
+		"about": "Images/Icon-wtv.png",
 		"icon": {
-			"192x192": "Images/Icon.png"
+			"192x192": "Images/Icon-wtv.png"
 		}
 	}
 }
