@@ -25,7 +25,6 @@ var MainMenuView = new MAF.Class({
                     styles: this.getCellDimensions(),
                     events: {
                         onSelect: function () {
-                            console.log("YEAH" + cell.title.getText());
                             MAF.application.loadView(cell.title.getText(), {});
                         },
                         onFocus: function () {
@@ -76,7 +75,7 @@ var MainMenuView = new MAF.Class({
 
     updateView: function () {
         this.elements.elementGrid.changeDataset([
-            {title: $_('CreateView')},
+            {title: $_('ScenarioEditor')},
             {title: $_('ManageView')},
             {title: $_('BrowseView')}
         ], true);

@@ -4,6 +4,7 @@ include( 'Javascript/Views/DevicesListView.js');
 include( 'Javascript/Views/CreateView.js');
 include( 'Javascript/Views/BrowseView.js');
 include( 'Javascript/Views/MainMenuView.js');
+include( 'Javascript/Views/ScenarioEditor.js');
 
 // Init application with view config
 MAF.application.init( {
@@ -11,7 +12,7 @@ MAF.application.init( {
 		{ id: 'MyView', viewClass: MainView },
 		{ id: 'About', viewClass: MAF.views.AboutBox },
 		{ id: 'MainMenuView', viewClass: MainMenuView },
-        { id: 'CreateView', viewClass: CreateView },
+        { id: 'ScenarioEditor', viewClass: ScenarioEditor },
         { id: 'ManageView', viewClass: BrowseView },
         { id: 'DevicesListView', viewClass: DeviceListView }
 
