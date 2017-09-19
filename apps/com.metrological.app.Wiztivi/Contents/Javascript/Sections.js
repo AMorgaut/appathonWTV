@@ -12,7 +12,15 @@ var Sections = [
         actionLabel: 'Enable',
         action: function enable(scenario) {
             scenario.enabled = !scenario.enabled;
-            scenario.actionLabel = scenario.enabled ? 'Disable' : 'Enable';
+
+            if (scenario.enabled) {
+                ScenarioPlayer.start(scenario);
+                scenario.actionLabel = 'Disable';
+            } else {
+                ScenarioPlayer.stop(scenario);
+                scenario.actionLabel = 'Enable';
+            }
+
             scenario.actionButton.setText(scenario.actionLabel);
 
             Sections.alert(

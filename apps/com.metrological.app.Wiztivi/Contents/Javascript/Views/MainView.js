@@ -4,7 +4,15 @@ var MainView = new MAF.Class( {
 
     Extends: MAF.system.SidebarView,
 
+    destroyView: function () {
+        ScenarioPlayer.dispatcher.unsubscribeFrom(MAF.application, 'onIotEvent');
+    },
+
     createView: function() {
+        
+        // init iot listener
+        MAF.mediaplayer.init(); // mandatoryMainView.js
+        ScenarioPlayer.dispatcher.subscribeTo(MAF.application, 'onIotEvent', this);
 
         var vPos = 0, hPos = ( this.width - 450 ) / 2;
 

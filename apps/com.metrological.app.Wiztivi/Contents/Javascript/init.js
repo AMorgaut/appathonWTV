@@ -2,7 +2,15 @@
 include( 'Javascript/Sections.js');
 include( 'Javascript/Scenarios.js');
 
+// Include your services
 include( 'Javascript/Services/Requests.js');
+include( 'Javascript/Services/ScenarioPlayer.js');
+
+// Include your devices
+include( 'Javascript/Devices/Devices.js');
+include( 'Javascript/Devices/MotionSensor.js');
+include( 'Javascript/Devices/Fan.js');
+include( 'Javascript/Devices/Door.js');
 include( 'Javascript/Devices/Curtains.js');
 include( 'Javascript/Devices/Lights.js');
 
