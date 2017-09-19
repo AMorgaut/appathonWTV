@@ -15,21 +15,30 @@ Sections[T_INSTALLED].scenarios = [
 
     {
         name: 'Light Cook Alarm',
-        description: 'Flash the light when food ready'
+        description: 'Flash the light when food ready',
+        script:  {
+            devices: [
+                { name: "hooven", actions: [
+                    {name: "ready", reaction: ['light1', 'color', 'red']}
+                ]}
+            ]
+        }
     },
 
     {
-        name: 'Simon' ,
-        description: 'A funny memory interactive game '
+        name: 'Pizza delivery' ,
+        description: 'See my visitor on my TV when the door ring, and open the door if I want',
+        script:  {
+            devices: [
+                { name: "door", actions: [
+                    {name: "ring", reaction: ['light1', 'color', 'red']}
+                ]}
+            ]
+        }
     }
 ];
 
 Sections[T_RECOMMENDED].scenarios = [
-
-    {
-        name: 'Pizza delivery' ,
-        description: 'See my visitor on my TV when the door ring, and open the door if I want'
-    },
 
     {
         name: 'Hyper Movie Experience',
