@@ -42,6 +42,18 @@ Sections[T_INSTALLED].scenarios = [
 Sections[T_RECOMMENDED].scenarios = [
 
     {
+        name: 'Poltergeist',
+        description: 'Randomly move object direct Horror movie silent moments',
+        script:  {
+            devices: [
+                { name: "hooven", actions: [
+                    {name: "ready", reaction: ['light1', '']}
+                ]}
+            ]
+        }
+    },
+
+    {
         name: 'Hyper Movie Experience',
         description: 'Flash the light when food ready'
     }

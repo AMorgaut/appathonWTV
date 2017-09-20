@@ -25,7 +25,7 @@ var ScenarioDetailView = new MAF.Class( {
 		} ).appendTo( this );
 
 		this.scenarioTitle = new MAF.element.Text({
-			label: $_('HoH Alarm'),
+			label: currentScenario.name,
 			styles: {
 				height: 40, width: 200,
 				vOffset: 130, hOffset: hOffset
@@ -35,7 +35,7 @@ var ScenarioDetailView = new MAF.Class( {
 			}
 		} ).appendTo(this);
 
-		this.splahImage = new MAF.element.Image( {
+		this.splashImage = new MAF.element.Image( {
 			src: 'Images/light.png',
 			styles: {
 				opacity: 0.45,
@@ -190,7 +190,7 @@ var ScenarioDetailView = new MAF.Class( {
 		// update the current scenario
 		var scenario = currentScenario;
         var section = scenario.section;
-		this.title.setText(scenario.label);
+		this.scenarioTitle.setText(scenario.label);
 		this.description.setText(scenario.description);
         //scenario.actionButton = this.actionButton;
 		//this.actionButton.setText(section.actionLabel);
