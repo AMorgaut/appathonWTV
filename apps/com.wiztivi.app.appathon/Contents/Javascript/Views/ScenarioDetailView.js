@@ -14,6 +14,7 @@ var ScenarioDetailView = new MAF.Class( {
 
 	createView: function() {
         var section = currentScenario.section;
+		var hOffset =  ( this.width - 450 ) / 2;
 
 		console.log('create detail view');
 		new MAF.control.BackButton( {
@@ -23,24 +24,33 @@ var ScenarioDetailView = new MAF.Class( {
 			}
 		} ).appendTo( this );
 
-		this.title = new MAF.element.Text({
-			label: currentScenario.name,
+		this.scenarioTitle = new MAF.element.Text({
+			label: $_('HoH Alarm'),
 			styles: {
-				height: 40, width: 400,
-				vOffset: 200, hOffset: ( this.width - 400 ) / 2,
-				textAlign: 'leftCenter'
-
+				height: 40, width: 200,
+				vOffset: 130, hOffset: hOffset
 			},
 			textStyles: {
-				fontSize: 35
+				fontSize: 70
 			}
 		} ).appendTo(this);
+
+		this.splahImage = new MAF.element.Image( {
+			src: 'Images/light.png',
+			styles: {
+				opacity: 0.45,
+				width: 225,
+				height: 225,
+				hOffset: hOffset,
+				vOffset: 200
+			}
+		} ).appendTo( this );
 
 		this.description = new MAF.element.Text({
 			label: currentScenario.description,
 			styles: {
-				height: 200, width: 800,
-				vOffset: 125, hOffset: ( this.width - 400 ) / 2,
+				height: 200, width: 600,
+				vOffset: 480, hOffset: hOffset,
 				textAlign: 'leftCenter'
 
 			},
@@ -69,15 +79,14 @@ var ScenarioDetailView = new MAF.Class( {
 			}
 		};
 
-
 		this.enableButton = new MAF.control.TextButton( {
 			guid: 'scenarioEnableButton',
 			label: 'Enable',
 			view: currentScenario.view || null,
 			styles: {
 				height: 80, width: 450,
-				vOffset: this.height - 400,
-				hOffset: ( this.width - 450 ) / 2,
+				vOffset: this.height - 300,
+				hOffset: hOffset,
 				borderRadius: 10,
 				backgroundColor: " #99e699"
 			},
@@ -100,17 +109,15 @@ var ScenarioDetailView = new MAF.Class( {
 				}
 			}
 		} ).appendTo( this );
-		
-		
-		
+
 		this.editButton = new MAF.control.TextButton( {
 			guid: 'scenarioEditButton',
 			label: 'Edit',
 			view: currentScenario.view || null,
 			styles: {
 				height: 80, width: 450,
-				vOffset: this.height - 300,
-				hOffset: ( this.width - 450 ) / 2,
+				vOffset: this.height - 200,
+				hOffset: hOffset,
 				borderRadius: 10,
 				backgroundColor: " #ffe066"
 			},
@@ -133,14 +140,13 @@ var ScenarioDetailView = new MAF.Class( {
 			label: 'Publish',
 			view: currentScenario.view || null,
 			styles: {
-				height: 60, width: 450,
-				vOffset: this.height - 175,
-				hOffset: ( this.width - 450 ) / 2,
+				height: 40, width: 450,
+				vOffset: this.height - 100,
+				hOffset: hOffset,
 				borderRadius: 10,
 				backgroundColor: "#99ccff"
 			},
 			textStyles: {
-				fontSize: 35,
 				anchorStyle: 'center'
 			},
 			events: {
@@ -158,13 +164,13 @@ var ScenarioDetailView = new MAF.Class( {
 			label: 'Delete',
 			view: currentScenario.view || null,
 			styles: {
-				height: 60, width: 450,
-				vOffset: this.height - 100, hOffset: ( this.width - 450 ) / 2,
+				height: 40, width: 450,
+				vOffset: this.height - 50,
+				hOffset: hOffset,
 				borderRadius: 10,
 				backgroundColor: "#ff8080"
 			},
 			textStyles: {
-				fontSize: 35,
 				anchorStyle: 'center'
 			},
 			events: {
