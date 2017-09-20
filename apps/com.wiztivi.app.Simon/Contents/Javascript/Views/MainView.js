@@ -178,9 +178,9 @@ var MainView = new MAF.Class( {
         this.scoreLabel.hide();
 
         this.tabIOTEvents[0] = function() {
-            console.log("LIGHT");
-            Lights.switchOn(3, undefined, 46920, 254, false);
-            setTimeout(Lights.switchOff, 2000, 3);
+            console.log("BLUE LIGHT");
+            Lights.switchOn(1, undefined, 46920, 254, false);
+            setTimeout(Lights.switchOff, 2000, 1);
         };
         this.tabIOTEvents[1] = function() {
             console.log("FAN");
@@ -188,9 +188,9 @@ var MainView = new MAF.Class( {
             setTimeout(Fan.stopFan, 3500);
         };
         this.tabIOTEvents[2] = function() {
-            console.log("DOORLOCK");
-            Lights.switchOn(2, undefined, 65535, 254, false);
-            setTimeout(Lights.switchOff, 2000, 2);
+            console.log("RED LIGHT");
+            Lights.switchOn(3, undefined, 65535, 254, false);
+            setTimeout(Lights.switchOff, 2000, 3);
         };
         this.tabIOTEvents[3] = function() {
             console.log("CURTAIN");
@@ -208,9 +208,9 @@ var MainView = new MAF.Class( {
 
             // Update grid with an example dataset
             this.grid.changeDataset( [
-                { title: $_( 'LIGHT' ) },
+                { title: $_( 'BLUE LIGHT' ) },
                 { title: $_( 'FAN' ) },
-                { title: $_( 'DOORLOCK' ) },
+                { title: $_( 'RED LIGHT' ) },
                 { title: $_( 'CURTAIN' ) }
             ], true );
         }
@@ -247,8 +247,8 @@ var launchTurn = function() {
             }
         }
     });
-    sequence.push(1);//Math.floor(Math.random()*4));
-    var timeout = 4000;// - (Math.min(Math.floor((sequence.length - 1) / 5), 3) * 750);
+    sequence.push(2);//Math.floor(Math.random()*4));
+    var timeout = 3000;// - (Math.min(Math.floor((sequence.length - 1) / 5), 3) * 750);
 
     setTimeout(playObject, 500, 0);
 
@@ -260,21 +260,29 @@ var launchTurn = function() {
 
 var playObject = function(index) {
     simonView.tabIOTEvents[sequence[index]]();
-    simonView.observeAnim.setStyle('opacity', 1);
     simonView.observeAnim.animate({
-        duration: 1,
-        scale: 2,
-        opacity: 0,
+        duration: 0,
+        opacity: 1,
         events: {
             onAnimationEnded: function() {
                 simonView.observeAnim.animate({
-                    duration: 0,
-                    scale: 1,
-                    opacity: 0
+                    duration: 1,
+                    scale: 2,
+                    opacity: 0,
+                    events: {
+                        onAnimationEnded: function () {
+                            simonView.observeAnim.animate({
+                                duration: 0,
+                                scale: 1,
+                                opacity: 0
+                            });
+                        }
+                    }
                 });
             }
         }
     });
+
 };
 
 var playerTurn = function() {
