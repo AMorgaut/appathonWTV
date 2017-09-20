@@ -40,7 +40,7 @@ var ScenarioDetailView = new MAF.Class( {
 			label: currentScenario.description,
 			styles: {
 				height: 200, width: 800,
-				vOffset: 300, hOffset: ( this.width - 400 ) / 2,
+				vOffset: 125, hOffset: ( this.width - 400 ) / 2,
 				textAlign: 'leftCenter'
 
 			},
@@ -69,14 +69,99 @@ var ScenarioDetailView = new MAF.Class( {
 			}
 		};
 
-		this.actionButton = new MAF.control.TextButton( {
-			guid: 'scenarioActionButton',
-			label: section.actionLabel,
+
+		this.enableButton = new MAF.control.TextButton( {
+			guid: 'scenarioEnableButton',
+			label: 'Enable',
 			view: currentScenario.view || null,
 			styles: {
 				height: 80, width: 450,
+				vOffset: this.height - 400,
+				hOffset: ( this.width - 450 ) / 2,
+				borderRadius: 10,
+				backgroundColor: " #99e699"
+			},
+			textStyles: {
+				fontSize: 35,
+				anchorStyle: 'center'
+			},
+			events: {
+				onFocus: function () {
+					// console.log(ScenarioDetailView);
+				},
+				onSelect: function() {
+					onButtonSelect();
+					if (MotionSensor.getActive()) {
+						this.setText('Disable');
+					} else {
+						this.setText('Enable');
+					}
+					//onButtonSelect();
+				}
+			}
+		} ).appendTo( this );
+		
+		
+		
+		this.editButton = new MAF.control.TextButton( {
+			guid: 'scenarioEditButton',
+			label: 'Edit',
+			view: currentScenario.view || null,
+			styles: {
+				height: 80, width: 450,
+				vOffset: this.height - 300,
+				hOffset: ( this.width - 450 ) / 2,
+				borderRadius: 10,
+				backgroundColor: " #ffe066"
+			},
+			textStyles: {
+				fontSize: 35,
+				anchorStyle: 'center'
+			},
+			events: {
+				onFocus: function () {
+					// console.log(ScenarioDetailView);
+				},
+				onSelect: function() {
+					//onButtonSelect();
+				}
+			}
+		} ).appendTo( this );
+
+		this.publishButton = new MAF.control.TextButton( {
+			guid: 'scenarioPublishButton',
+			label: 'Publish',
+			view: currentScenario.view || null,
+			styles: {
+				height: 60, width: 450,
+				vOffset: this.height - 175,
+				hOffset: ( this.width - 450 ) / 2,
+				borderRadius: 10,
+				backgroundColor: "#99ccff"
+			},
+			textStyles: {
+				fontSize: 35,
+				anchorStyle: 'center'
+			},
+			events: {
+				onFocus: function () {
+					// console.log(ScenarioDetailView);
+				},
+				onSelect: function() {
+					//onButtonSelect();
+				}
+			}
+		} ).appendTo( this );
+
+		this.deleteButton = new MAF.control.TextButton( {
+			guid: 'scenarioDeleteButton',
+			label: 'Delete',
+			view: currentScenario.view || null,
+			styles: {
+				height: 60, width: 450,
 				vOffset: this.height - 100, hOffset: ( this.width - 450 ) / 2,
-				borderRadius: 10
+				borderRadius: 10,
+				backgroundColor: "#ff8080"
 			},
 			textStyles: {
 				fontSize: 35,
@@ -101,7 +186,7 @@ var ScenarioDetailView = new MAF.Class( {
         var section = scenario.section;
 		this.title.setText(scenario.label);
 		this.description.setText(scenario.description);
-        scenario.actionButton = this.actionButton;
-		this.actionButton.setText(section.actionLabel);
+        //scenario.actionButton = this.actionButton;
+		//this.actionButton.setText(section.actionLabel);
 	}
 } );
