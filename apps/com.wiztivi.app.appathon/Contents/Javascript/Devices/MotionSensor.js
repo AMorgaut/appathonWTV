@@ -16,7 +16,9 @@ var MotionSensor = {
                 setTimeout(myFunction, 1000);
             }
         };
-        myFunction();
+        if (active) {
+            myFunction();
+        }
     }
 
 };

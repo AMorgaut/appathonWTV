@@ -1,9 +1,9 @@
 include(' Javascript/Devices/Devices.js');
-include(' Javascript/Views/ScenarioEditor.js');
+include(' Javascript/Views/ScenarioEditorBis.js');
 var selectedAction = undefined;
 
-var ActionSelectionView = new MAF.Class( {
-    Classname: 'ActionSelectionView',
+var ActionSelectionBis = new MAF.Class( {
+    Classname: 'ActionSelectionBis',
     Extends: MAF.system.FullscreenView,
 
     initialize: function() {
@@ -49,7 +49,7 @@ var ActionSelectionView = new MAF.Class( {
                         onSelect: function() {
                             selectedAction = this.title.getText();
                             this.title.setText('SELECTED!');
-                            MAF.application.loadView('CreateView', {device: selectedDevice, action: selectedAction});
+                            MAF.application.loadView('CreateView', {device2: selectedDevice, action2: selectedAction});
                         },
 
                         onFocus: function() {
@@ -122,7 +122,7 @@ var ActionSelectionView = new MAF.Class( {
         var actions = getDeviceActions(selectedDevice);
         var act = new Array();
         actions.forEach(function(action) {
-           act.push({title: action.label})
+            act.push({title: action.label})
         });
         this.elements.slider.changeDataset(act, true);
     }

@@ -1,5 +1,5 @@
 var Devices = {
-    'Curtains': {
+    'Forest Curtains': {
         actions: [
             {
                 id: 'openCurtains',
@@ -15,7 +15,7 @@ var Devices = {
             }
         ]
     },
-    'Door': {
+    'Doorbird RVS': {
         actions: [
             {
                 id: 'lock',
@@ -27,7 +27,7 @@ var Devices = {
             }
         ]
     },
-    'Fan': {
+    'Dyson Pure Hot&Cool': {
         actions: [
             {
                 id: 'startFan',
@@ -39,7 +39,7 @@ var Devices = {
             }
         ]
     },
-    'Lights': {
+    'Philips Hue': {
         actions: [
             {
                 id: 'switchOn',
@@ -60,7 +60,7 @@ var Devices = {
             }
         ]
     },
-    'MotionSensor': {
+    'Philips Motion Sensor': {
         actions: [
             {
                 id: 'onMove',

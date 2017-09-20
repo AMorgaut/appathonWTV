@@ -6,16 +6,17 @@ var
 
 Sections[T_CUSTOM].scenarios = [
     {
-        name: '123',
-        description: 'My simple scenario I did myself'
+        name: 'HoH Alarm',
+        description: 'A flash light based alarm for deaf and hard of hearing people.' +
+            'Can react to Ring bell, Microwave alarm, or even program reminders'
     }
 ];
 
 Sections[T_INSTALLED].scenarios = [
 
     {
-        name: 'Light Cook Alarm',
-        description: 'Flash the light when food ready',
+        name: 'Poltergeist',
+        description: 'Randomly move object direct Horror movie silent moments',
         script:  {
             devices: [
                 { name: "hooven", actions: [
