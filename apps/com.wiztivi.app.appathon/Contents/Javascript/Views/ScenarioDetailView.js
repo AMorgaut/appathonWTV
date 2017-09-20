@@ -41,7 +41,7 @@ var ScenarioDetailView = new MAF.Class( {
 				opacity: 0.45,
 				width: 225,
 				height: 225,
-				hOffset: hOffset,
+				hOffset: (this.width - 225)/2,
 				vOffset: 200
 			}
 		} ).appendTo( this );
@@ -49,10 +49,10 @@ var ScenarioDetailView = new MAF.Class( {
 		this.description = new MAF.element.Text({
 			label: currentScenario.description,
 			styles: {
-				height: 200, width: 600,
-				vOffset: 480, hOffset: hOffset,
-				textAlign: 'leftCenter'
-
+				height: 200, width: 450,
+				vOffset: 460, hOffset: hOffset,
+				textAlign: 'leftCenter',
+				wrap: true
 			},
 			textStyles: {
 				fontSize: 35
