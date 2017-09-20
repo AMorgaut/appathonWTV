@@ -247,7 +247,7 @@ var launchTurn = function() {
             }
         }
     });
-    sequence.push(2);//Math.floor(Math.random()*4));
+    sequence.push(Math.floor(Math.random()*4));
     var timeout = 3000;// - (Math.min(Math.floor((sequence.length - 1) / 5), 3) * 750);
 
     setTimeout(playObject, 500, 0);
