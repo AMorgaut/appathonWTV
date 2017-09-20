@@ -25,7 +25,12 @@ var CreateView = new MAF.Class({
                     styles: this.getCellDimensions(),
                     events: {
                         onSelect: function () {
-                            MAF.application.loadView('ScenarioEditor', {});
+                            if (this.title = 'Add a reaction') {
+                                MAF.application.loadView('ScenarioEditor', {});
+                            }
+                            else {
+                                MAF.application.loadView('ScenarioEditorReaction', {});
+                            }
                         },
                         onFocus: function () {
                             this.animate({
@@ -59,7 +64,7 @@ var CreateView = new MAF.Class({
                         width: cell.width,
                         height: cell.height,
                         color: 'white',
-                        fontSize: 30,
+                        fontSize: 20,
                         anchorStyle: 'center',
                         wrap: true
                     }
@@ -76,15 +81,14 @@ var CreateView = new MAF.Class({
     updateView: function () {
         console.log(this.persist.device);
         console.log(this.persist.action);
-        if (this.persist.device) {
-            console.log("YEAH");
+        if (this.persist.device && this.persist.action) {
             this.elements.elementGrid.changeDataset([
                 {
-                    title: this.persist.device,
+                    title: this.persist.device + " - " + this.persist.action,
                     label: 'DevicesListView'
                 },
                 {
-                    title: $_('Select a reaction'),
+                    title: 'Add a Reaction',
                     label: 'DevicesListView'
                 },
                 {
@@ -92,8 +96,7 @@ var CreateView = new MAF.Class({
                     label: 'DevicesListView'
                 }
             ], true);
-        }
-        else {
+        } else {
             this.elements.elementGrid.changeDataset([
                 {
                     title: $_('Select an action'),
