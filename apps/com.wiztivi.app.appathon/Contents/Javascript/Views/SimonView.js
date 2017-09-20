@@ -1,7 +1,7 @@
 Theme.set({
     BaseFocus: {
         styles: {
-            backgroundColor: '#0000ff'
+            backgroundColor: '#01A0E2'
         }
     }
 });
