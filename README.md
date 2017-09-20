@@ -53,7 +53,7 @@ Example Contents/metadata.json
 
 Example Contents/Javascript/init.js which is the first script loaded from the metadata.json (scripts)
 ```javascript
-  include("Javascript/Views/MainView.js");
+  include("Javascript/Views/SimonView.js");
   include("Javascript/Views/AboutView.js");
 
   MAF.application.init({

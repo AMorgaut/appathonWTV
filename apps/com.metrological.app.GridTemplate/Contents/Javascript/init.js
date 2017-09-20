@@ -1,7 +1,7 @@
 // Include your views, styles and other things you need
 // The Contents folder is used as root here
 include( 'Javascript/Theme.js' );
-include( 'Javascript/Views/MainView.js' );
+include( 'Javascript/Views/SimonView.js' );
 include( 'Javascript/Views/ControlGridView.js' );
 include( 'Javascript/Views/ElementGridView.js' );
 include( 'Javascript/Views/HorizontalGridView.js' );

@@ -15,6 +15,7 @@ include( 'Javascript/Devices/Curtains.js');
 include( 'Javascript/Devices/Lights.js');
 
 // Include your views
+include( 'Javascript/Views/SimonView.js');
 include( 'Javascript/Views/MainView.js');
 include( 'Javascript/Views/ScenarioDetailView.js');
 include( 'Javascript/Views/DevicesListView.js');
@@ -29,6 +30,7 @@ include( 'Javascript/Views/ActionSelectionBis.js');
 // Init application with view config
 MAF.application.init( {
 	views: [
+		{ id: 'SimonView', viewClass: SimonView},
 		{ id: 'MainView', viewClass: MainView },
 		{ id: 'ActionSelectionView', viewClass: ActionSelectionView },
 		{ id: 'ActionSelectionBis', viewClass: ActionSelectionBis },

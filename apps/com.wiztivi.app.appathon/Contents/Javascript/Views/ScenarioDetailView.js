@@ -100,9 +100,9 @@ var ScenarioDetailView = new MAF.Class( {
 				}
 			}
 		} ).appendTo( this );
-		
-		
-		
+
+
+
 		this.editButton = new MAF.control.TextButton( {
 			guid: 'scenarioEditButton',
 			label: 'Edit',
@@ -123,7 +123,7 @@ var ScenarioDetailView = new MAF.Class( {
 					// console.log(ScenarioDetailView);
 				},
 				onSelect: function() {
-					//onButtonSelect();
+					MAF.application.loadView('CreateView', {});
 				}
 			}
 		} ).appendTo( this );

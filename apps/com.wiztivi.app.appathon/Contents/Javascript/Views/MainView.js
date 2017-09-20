@@ -9,7 +9,7 @@ var MainView = new MAF.Class( {
     },
 
     createView: function() {
-        
+
         // init iot listener
         MAF.mediaplayer.init(); // mandatoryMainView.js
         ScenarioPlayer.dispatcher.subscribeTo(MAF.application, 'onIotEvent', this);
@@ -77,6 +77,10 @@ var MainView = new MAF.Class( {
                     onSelect: function() {
                         currentScenario = scenario;
                         console.log('scenario', scenario);
+                        if (currentScenario.name === 'Super Simon Game') {
+                            console.log("title ok!");
+                            return MAF.application.loadView('SimonView', {});
+                        }
                         return MAF.application.loadView( section.view || 'ScenarioDetailView' );
                     }
                 }

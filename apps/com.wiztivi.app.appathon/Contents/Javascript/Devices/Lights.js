@@ -48,5 +48,32 @@ var Lights = {
         for (var i = 1; i <= 7; i++) {
             Lights.switchOn(i, undefined, 65535, 254, true);    
         }
+    },
+
+    flickerAll: function(colour, nbFlickers, interval) {
+        var bodyOn = {};
+        var bodyOff = {};
+        bodyOn.sat = colour ? 254 : 0;
+        bodyOff.sat = colour ? 254 : 0;
+        bodyOn.hue = colour || 25500;
+        bodyOff.hue = colour || 25500;
+        bodyOn.bri = 254;
+        bodyOff.bri = 254;
+        bodyOn.alert = "none";
+        bodyOff.alert = "none";
+        for(var i = 0 ; i < nbFlickers ; i++) {
+            for(var j = 1; j < 8 ; j++) {
+
+                bodyOn.on = true;
+                var sendRequestOn = Requests.doRequest.bind(this, 'PUT', lightsURL + j + "/state", undefined, bodyOn);
+                bodyOff.on = false;
+                var sendRequestOff = Requests.doRequest.bind(this, 'PUT', lightsURL + j + "/state", undefined, bodyOff);
+                setTimeout(sendRequestOn, interval * i);
+                setTimeout(sendRequestOff, (interval * i) + (interval / 2));
+            }
+
+        }
+
     }
+
 };

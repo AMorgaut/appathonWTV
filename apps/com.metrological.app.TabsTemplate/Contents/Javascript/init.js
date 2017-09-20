@@ -1,6 +1,6 @@
 // Include the view and theme
 include( 'Javascript/Theme.js' );
-include( 'Javascript/Views/MainView.js' );
+include( 'Javascript/Views/SimonView.js' );
 
 // Init application with view config
 MAF.application.init( {

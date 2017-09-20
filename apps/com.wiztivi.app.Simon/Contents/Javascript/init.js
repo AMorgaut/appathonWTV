@@ -1,5 +1,5 @@
 // Include your views
-include( 'Javascript/Views/MainView.js');
+include( 'Javascript/Views/SimonView.js');
 include( 'Javascript/Services/Requests.js');
 include( 'Javascript/Devices/Lights.js');
 include( 'Javascript/Devices/Curtains.js');

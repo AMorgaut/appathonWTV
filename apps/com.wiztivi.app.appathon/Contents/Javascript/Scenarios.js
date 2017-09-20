@@ -6,16 +6,16 @@ var
 
 Sections[T_CUSTOM].scenarios = [
     {
-        name: '123',
-        description: 'My simple scenario I did myself'
+        name: 'Automatic light',
+        description: 'A simple light application I did myself'
     }
 ];
 
 Sections[T_INSTALLED].scenarios = [
 
     {
-        name: 'Light Cook Alarm',
-        description: 'Flash the light when food ready',
+        name: 'Super Simon Game',
+        description: 'Integration of the famous Simon game with IoT objects you own at your house ! Have fun :)',
         script:  {
             devices: [
                 { name: "hooven", actions: [

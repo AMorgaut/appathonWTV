@@ -8,7 +8,7 @@ Theme.set({
 
 
 var simonView;
-var MainView = new MAF.Class( {
+var SimonView = new MAF.Class( {
     ClassName: 'MainView',
     Extends: MAF.system.FullscreenView,
 
