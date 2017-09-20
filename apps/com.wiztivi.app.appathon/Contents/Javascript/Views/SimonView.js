@@ -16,6 +16,10 @@ var SimonView = new MAF.Class( {
         this.parent();
     },
 
+    initView: function() {
+        this.setStyle( 'backgroundColor', 'rgba( 0, 0, 0, 0.8 )' );
+    },
+
     createView: function() {
 
         simonView = this;
