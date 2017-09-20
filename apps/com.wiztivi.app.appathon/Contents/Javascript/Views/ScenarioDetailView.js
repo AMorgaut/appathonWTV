@@ -49,6 +49,26 @@ var ScenarioDetailView = new MAF.Class( {
 			}
 		} ).appendTo(this);
 
+		var react = function(data) {
+			console.log(data.state.presence);
+			if (data.state.presence && MotionSensor.getActive()) {
+				Lights.switchOn(6, undefined, 65535, 254, false);
+			} else {
+				Lights.switchOff(6);
+				setTimeout(Lights.switchOf, 1000, 6);
+			}
+		};
+
+		var onSelect = function() {
+			if (!MotionSensor.getActive()) {
+				MotionSensor.setActive(true);
+				MotionSensor.reactOn(react);
+			} else {
+				MotionSensor.setActive(false);
+				setTimeout(Lights.switchOff, 3000, 6);
+			}
+		};
+
 		this.actionButton = new MAF.control.TextButton( {
 			guid: 'scenarioActionButton',
 			label: section.actionLabel,
