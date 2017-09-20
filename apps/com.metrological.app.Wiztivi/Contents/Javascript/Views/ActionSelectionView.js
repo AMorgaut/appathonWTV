@@ -1,3 +1,5 @@
+include(' Javascript/Devices/Devices.js');
+include(' Javascript/Views/ScenarioEditor.js');
 var selectedAction = undefined;
 
 var ActionSelectionView = new MAF.Class( {
@@ -14,6 +16,7 @@ var ActionSelectionView = new MAF.Class( {
 
     createView: function() {
 
+        selectedDevice = this.persist.device;
         new MAF.control.BackButton( {
             label: $_( 'BACK' ),
             styles: {
@@ -46,7 +49,7 @@ var ActionSelectionView = new MAF.Class( {
                         onSelect: function() {
                             selectedAction = this.title.getText();
                             this.title.setText('SELECTED!');
-                            MAF.application.loadView('CreateView', {action: selectedAction});
+                            MAF.application.loadView('CreateView', {device: selectedDevice, action: selectedAction});
                         },
 
                         onFocus: function() {
@@ -116,22 +119,15 @@ var ActionSelectionView = new MAF.Class( {
     },
 
     focusView: function() {
-        //var actions = getDeviceActions();
-        this.elements.slider.changeDataset( [
-            { title: $_( 'Estimote Proximity Beacon' ) },
-            { title: $_( 'Philips Hue Bloom' ) },
-            { title: $_( 'Sonos PLAY:1 Black' ) },
-            { title: $_( 'Doorbird RVS' ) },
-            { title: $_( 'Philips Hue' ) },
-            { title: $_( 'Nuki Smart Lock' ) },
-            { title: $_( 'Nokia Body Cardio' ) },
-            { title: $_( 'Siemens Coffemachine' ) },
-            { title: $_( 'Netgear Arlo Pro Duo' ) },
-            { title: $_( 'Siemens Fridge iQ500' ) }
-        ], true );
+        var actions = getDeviceActions(selectedDevice);
+        var act = new Array();
+        actions.forEach(function(action) {
+           act.push({title: action.label})
+        });
+        this.elements.slider.changeDataset(act, true);
     }
 });
 
-/*function getDeviceActions(device) {
-    JSON.parse();
-}*/
+function getDeviceActions(device) {
+    return Devices[device].actions;
+}

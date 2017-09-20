@@ -121,20 +121,16 @@ var ScenarioEditor = new MAF.Class( {
 
     focusView: function() {
         this.elements.slider.changeDataset( [
-            { title: $_( 'Estimote Proximity Beacon' ) },
+            { title: $_( 'Forest Curtains' ) },
             { title: $_( 'Philips Hue Bloom' ) },
             { title: $_( 'Sonos PLAY:1 Black' ) },
             { title: $_( 'Doorbird RVS' ) },
             { title: $_( 'Philips Hue' ) },
             { title: $_( 'Nuki Smart Lock' ) },
-            { title: $_( 'Nokia Body Cardio' ) },
+            { title: $_( 'Dyson Pure Hot&Cool' ) },
             { title: $_( 'Siemens Coffemachine' ) },
             { title: $_( 'Netgear Arlo Pro Duo' ) },
             { title: $_( 'Siemens Fridge iQ500' ) }
         ], true );
     }
 });
-
-function getDeviceActions(device) {
-    JSON.parse();
-}
