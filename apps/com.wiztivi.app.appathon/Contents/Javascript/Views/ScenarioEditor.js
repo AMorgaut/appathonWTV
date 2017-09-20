@@ -59,7 +59,7 @@ var ScenarioEditor = new MAF.Class( {
 
                             this.setStyle(
                                 'backgroundColor',
-                                'red'
+                                '#01A0E2'
                             );
                             selectedCell = this.getCellDataIndex();
                         },

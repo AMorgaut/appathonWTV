@@ -38,7 +38,7 @@ var CreateView = new MAF.Class({
                         },
                         onFocus: function () {
                             this.animate({
-                                backgroundColor: 'red',
+                                backgroundColor: '#01A0E2',
                                 duration: 0.3,
                                 scale: 1.2
                             });
@@ -80,7 +80,56 @@ var CreateView = new MAF.Class({
                 cell.title.setText(data.title);
             }
         }).appendTo(this);
+
+        this.addActionButton = new MAF.control.TextButton( {
+            guid: 'addActionButton',
+            label: 'Add action',
+            view: currentScenario.view || null,
+            styles: {
+                height: 40, width: 450,
+                vOffset: this.height - 100,
+                hOffset: 0,
+                borderRadius: 10,
+                backgroundColor: "#99ccff"
+            },
+            textStyles: {
+                anchorStyle: 'center'
+            },
+            events: {
+                onFocus: function () {
+                    // console.log(ScenarioDetailView);
+                },
+                onSelect: function() {
+                    //onButtonSelect();
+                }
+            }
+        } ).appendTo( this );
+
+        this.saveButton = new MAF.control.TextButton( {
+            guid: 'saveButton',
+            label: 'Save',
+            view: currentScenario.view || null,
+            styles: {
+                height: 40, width: 450,
+                vOffset: this.height - 100,
+                hOffset: 800,
+                borderRadius: 10,
+                backgroundColor: "#99ccff"
+            },
+            textStyles: {
+                anchorStyle: 'center'
+            },
+            events: {
+                onFocus: function () {
+                    // console.log(ScenarioDetailView);
+                },
+                onSelect: function() {
+                    MAF.application.loadView('ScenarioDetailView', {device: savedDevice, action: savedAction});
+                }
+            }
+        } ).appendTo( this );
     },
+
 
     updateView: function () {
         if (this.persist.device && this.persist.action) {
