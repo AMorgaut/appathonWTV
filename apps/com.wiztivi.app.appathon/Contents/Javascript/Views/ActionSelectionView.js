@@ -1,8 +1,7 @@
-var selectedCell = undefined;
-var sliderGrid = undefined;
+var selectedAction = undefined;
 
-var ScenarioEditor = new MAF.Class( {
-    Classname: 'ScenarioEditor',
+var ActionSelectionView = new MAF.Class( {
+    Classname: 'ActionSelectionView',
     Extends: MAF.system.FullscreenView,
 
     initialize: function() {
@@ -25,7 +24,7 @@ var ScenarioEditor = new MAF.Class( {
 
         this.elements.slider = new MAF.element.SlideCarousel( {
             visibleCells: 4,
-            subCells: 2,
+            subCells: 1,
             focusIndex: 1,
             slideDuration: 0.3,
             styles: {
@@ -45,7 +44,9 @@ var ScenarioEditor = new MAF.Class( {
                     events: {
 
                         onSelect: function() {
-                            //this.showActionsMenu();
+                            selectedAction = this.title.getText();
+                            this.title.setText('SELECTED!');
+                            MAF.application.loadView('CreateView', {action: selectedAction});
                         },
 
                         onFocus: function() {
@@ -94,28 +95,28 @@ var ScenarioEditor = new MAF.Class( {
         }).appendTo( this );
 
         sliderGrid = this.elements.slider;
-        //console.log(sliderGrid);
-        //this.setOnSelectEvent(sliderGrid);
     },
 
-    /*setOnSelectEvent : function(slider) {
-        slider.forEach(function(element) {
-            element.events.onSelect(function () {
-                sliderGrid.forEach(function(element) {
-                    if (element !== selectedCell) {
-                        hide();
-                    }
-                });
-            });
-
-        });
-    },*/
-
     updateView : function() {
+    },
 
+    setOnSelectEvent : function(slider) {
+        if (slider) {
+            slider.forEach(function (element) {
+                element.events.onSelect(function () {
+                    sliderGrid.forEach(function (element) {
+                        if (element !== selectedCell) {
+                            element.hide();
+                        }
+                    });
+                });
+
+            });
+        }
     },
 
     focusView: function() {
+        //var actions = getDeviceActions();
         this.elements.slider.changeDataset( [
             { title: $_( 'Estimote Proximity Beacon' ) },
             { title: $_( 'Philips Hue Bloom' ) },
@@ -130,3 +131,7 @@ var ScenarioEditor = new MAF.Class( {
         ], true );
     }
 });
+
+/*function getDeviceActions(device) {
+    JSON.parse();
+}*/

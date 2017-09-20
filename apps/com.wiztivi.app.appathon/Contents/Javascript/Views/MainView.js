@@ -24,7 +24,7 @@ var MainView = new MAF.Class( {
             styles: {height: 40, width: 450, vOffset: vPos, hOffset: hPos, borderRadius: 10},
             textStyles: {anchorStyle: 'center'},
             events: {onSelect: function() {
-                return MAF.application.loadView( 'ScenarioEditor' );
+                return MAF.application.loadView( 'CreateView' );
             }}
         } ).appendTo( this );
         vPos += 70;
@@ -50,7 +50,7 @@ var MainView = new MAF.Class( {
 
         function addScenario( scenario, buttonIdx ) {
 
-            var section = this.currentSection
+            var section = this.currentSection;
             scenario.section = section;
             scenario.action = section.action.bind(section, scenario);
 

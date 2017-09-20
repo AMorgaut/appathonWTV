@@ -59,5 +59,13 @@ var Devices = {
                 label: 'Alarm on'
             }
         ]
+    },
+    'MotionSensor': {
+        actions: [
+            {
+                id: 'onMove',
+                label: 'On move'
+            }
+        ]
     }
 };
