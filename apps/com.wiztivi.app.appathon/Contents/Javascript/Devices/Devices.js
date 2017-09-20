@@ -60,7 +60,7 @@ var Devices = {
             }
         ]
     },
-    'MotionSensor': {
+    'Philips Motion Sensor': {
         actions: [
             {
                 id: 'onMove',
