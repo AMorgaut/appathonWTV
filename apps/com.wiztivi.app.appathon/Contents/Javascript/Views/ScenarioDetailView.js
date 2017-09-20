@@ -59,7 +59,7 @@ var ScenarioDetailView = new MAF.Class( {
 			}
 		};
 
-		var onSelect = function() {
+		var onButtonSelect = function() {
 			if (!MotionSensor.getActive()) {
 				MotionSensor.setActive(true);
 				MotionSensor.reactOn(react);
@@ -87,7 +87,7 @@ var ScenarioDetailView = new MAF.Class( {
 					// console.log(ScenarioDetailView);
 				},
 				onSelect: function() {
-					currentScenario.action();
+					onButtonSelect();
 				}
 			}
 		} ).appendTo( this );
