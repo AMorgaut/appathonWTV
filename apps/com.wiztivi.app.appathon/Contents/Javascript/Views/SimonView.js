@@ -78,9 +78,10 @@ var SimonView = new MAF.Class( {
         this.launchButton = new MAF.control.TextButton({
             label: $_('Start new game'),
             styles: {
-                width: this.width,
-                height: 40,
-                vOffset: this.height - 40
+                width: this.width - 40,
+                height: 80,
+                vOffset: this.height - 250,
+                hOffset: 20
             },
             textStyles: {
                 anchorStyle: 'center'
