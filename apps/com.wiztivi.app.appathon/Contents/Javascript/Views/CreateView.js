@@ -1,3 +1,7 @@
+var savedAction = undefined;
+var savedDevice = undefined;
+var count = 0;
+
 var CreateView = new MAF.Class({
     ClassName: 'CreateView',
     Extends: MAF.system.FullscreenView,
@@ -25,12 +29,8 @@ var CreateView = new MAF.Class({
                     styles: this.getCellDimensions(),
                     events: {
                         onSelect: function () {
-                            if (this.title = 'Add a reaction') {
-                                MAF.application.loadView('ScenarioEditor', {});
-                            }
-                            else {
-                                MAF.application.loadView('ScenarioEditorReaction', {});
-                            }
+                            MAF.application.loadView('ScenarioEditor', {});
+                            count++;
                         },
                         onFocus: function () {
                             this.animate({
@@ -79,16 +79,31 @@ var CreateView = new MAF.Class({
     },
 
     updateView: function () {
-        console.log(this.persist.device);
-        console.log(this.persist.action);
         if (this.persist.device && this.persist.action) {
+            savedDevice = this.persist.device;
+            savedAction = this.persist.action;
             this.elements.elementGrid.changeDataset([
                 {
                     title: this.persist.device + " - " + this.persist.action,
                     label: 'DevicesListView'
                 },
                 {
-                    title: 'Add a Reaction',
+                    title: 'Philips Hue - Switch on lights',
+                    label: 'DevicesListView'
+                },
+                {
+                    title: $_('Add another reaction'),
+                    label: 'DevicesListView'
+                }
+            ], true);
+        } else if (savedDevice !== undefined && savedAction !== undefined && this.persist.device && this.persist.action) {
+            this.elements.elementGrid.changeDataset([
+                {
+                    title: savedDevice + " - " + savedAction,
+                    label: 'DevicesListView'
+                },
+                {
+                    title: this.persist.device + " - " + this.persist.action,
                     label: 'DevicesListView'
                 },
                 {
@@ -99,11 +114,11 @@ var CreateView = new MAF.Class({
         } else {
             this.elements.elementGrid.changeDataset([
                 {
-                    title: $_('Select an action'),
+                    title: 'Doorbird DVS - Unlock door',
                     label: 'DevicesListView'
                 },
                 {
-                    title: $_('Select a reaction'),
+                    title: 'Philips Hue - Switch on lights',
                     label: 'DevicesListView'
                 },
                 {

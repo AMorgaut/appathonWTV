@@ -1,9 +1,9 @@
-var selectedCell = undefined;
-var sliderGrid = undefined;
-var selectedDevice = undefined;
+include(' Javascript/Devices/Devices.js');
+include(' Javascript/Views/ScenarioEditorBis.js');
+var selectedAction = undefined;
 
-var ScenarioEditor = new MAF.Class( {
-    Classname: 'ScenarioEditor',
+var ActionSelectionBis = new MAF.Class( {
+    Classname: 'ActionSelectionBis',
     Extends: MAF.system.FullscreenView,
 
     initialize: function() {
@@ -16,6 +16,7 @@ var ScenarioEditor = new MAF.Class( {
 
     createView: function() {
 
+        selectedDevice = this.persist.device;
         new MAF.control.BackButton( {
             label: $_( 'BACK' ),
             styles: {
@@ -26,7 +27,7 @@ var ScenarioEditor = new MAF.Class( {
 
         this.elements.slider = new MAF.element.SlideCarousel( {
             visibleCells: 4,
-            subCells: 2,
+            subCells: 1,
             focusIndex: 1,
             slideDuration: 0.3,
             styles: {
@@ -46,9 +47,9 @@ var ScenarioEditor = new MAF.Class( {
                     events: {
 
                         onSelect: function() {
-                            selectedDevice = this.title.getText();
+                            selectedAction = this.title.getText();
                             this.title.setText('SELECTED!');
-                            MAF.application.loadView('ActionSelectionView', {device : selectedDevice});
+                            MAF.application.loadView('CreateView', {device2: selectedDevice, action2: selectedAction});
                         },
 
                         onFocus: function() {
@@ -90,7 +91,7 @@ var ScenarioEditor = new MAF.Class( {
                 cell.title.setText( data.title );
             },
             events: {
-                    onDatasetChanged: function() {
+                onDatasetChanged: function() {
                     this.getCurrentCell().focus();
                 }
             }
@@ -99,10 +100,8 @@ var ScenarioEditor = new MAF.Class( {
         sliderGrid = this.elements.slider;
     },
 
-
     updateView : function() {
     },
-
 
     setOnSelectEvent : function(slider) {
         if (slider) {
@@ -120,17 +119,15 @@ var ScenarioEditor = new MAF.Class( {
     },
 
     focusView: function() {
-        this.elements.slider.changeDataset( [
-            { title: $_( 'Forest Curtains' ) },
-            { title: $_( 'Philips Motion Sensor' ) },
-            { title: $_( 'Sonos PLAY:1 Black' ) },
-            { title: $_( 'Doorbird RVS' ) },
-            { title: $_( 'Philips Hue' ) },
-            { title: $_( 'Nuki Smart Lock' ) },
-            { title: $_( 'Dyson Pure Hot&Cool' ) },
-            { title: $_( 'Siemens Coffemachine' ) },
-            { title: $_( 'Netgear Arlo Pro Duo' ) },
-            { title: $_( 'Siemens Fridge iQ500' ) }
-        ], true );
+        var actions = getDeviceActions(selectedDevice);
+        var act = new Array();
+        actions.forEach(function(action) {
+            act.push({title: action.label})
+        });
+        this.elements.slider.changeDataset(act, true);
     }
 });
+
+function getDeviceActions(device) {
+    return Devices[device].actions;
+}

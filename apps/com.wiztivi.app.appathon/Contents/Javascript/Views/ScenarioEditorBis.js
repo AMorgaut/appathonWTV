@@ -2,8 +2,8 @@ var selectedCell = undefined;
 var sliderGrid = undefined;
 var selectedDevice = undefined;
 
-var ScenarioEditor = new MAF.Class( {
-    Classname: 'ScenarioEditor',
+var ScenarioEditorBis = new MAF.Class( {
+    Classname: 'ScenarioEditorBis',
     Extends: MAF.system.FullscreenView,
 
     initialize: function() {
@@ -90,7 +90,7 @@ var ScenarioEditor = new MAF.Class( {
                 cell.title.setText( data.title );
             },
             events: {
-                    onDatasetChanged: function() {
+                onDatasetChanged: function() {
                     this.getCurrentCell().focus();
                 }
             }
@@ -134,3 +134,4 @@ var ScenarioEditor = new MAF.Class( {
         ], true );
     }
 });
+
